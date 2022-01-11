@@ -18,7 +18,10 @@ export class Database {
       entities: [
         TransactionEntity,
       ],
+      synchronize:true
     });
+
+    console.log("State connection database: " + this.connection.isConnected);
     return this.connection;
   }
 

@@ -1,30 +1,53 @@
-import express, { Router } from "express";
+import {TransactionController, GetTransactions, GetTransaction} from "../../../controllers/transaction.controller"
+import express, { Router, Request, Response} from "express";
 
 const router: Router = express.Router();
 
-router.get("/movies", (req, res) => {
-  res.status(200).send(
-    [{ ok: true }, { ok: true }, { ok: true }]
-  );
+router.get("/transactions", async(_req: Request, res: Response) =>{
+  const transactionData: GetTransactions = await TransactionController.getTransactions(_req);
+  res.send(transactionData);
+})
+
+router.get("/transactions/:transactionId", async(_req: Request, res: Response) =>{
+  const userData: GetTransaction = await TransactionController.getTransaction(_req);
+  res.send(userData);
+})
+
+router.post("/transaction", async(_req: Request, res: Response) => {
+  const verify = await TransactionController.saveTransaction(_req);
+  if(verify)
+  {
+    res.status(200).send({status:"Saved"});
+  }
+  else
+  {
+    res.status(200).send({status:"Transaction already saved"});
+  }
 });
 
-router.get("/movies/:movie", (req, res) => {
-  res.status(200).send(
-    { ok: req.params.movie }
-  );
+router.put("/transaction/update", async(_req: Request, res: Response) => {
+  const verify = await TransactionController.updateTransaction(_req);
+  if(verify)
+  {
+    res.status(200).send({status:"Updated"});
+  }
+  else
+  {
+    res.status(200).send({status:"Transaction couldn't be updated"});
+  }
 });
 
-router.post("/movie", (req, res) => {
-  res.status(200).send(
-    req.body
-  );
-});
 
-router.put("/movie/:movie", (req, res) => {
-  res.status(200).send(
-    {body: req.body, id: req.params.movie}
-  );
+router.delete("/admin/transaction/:transactionId", async(_req: Request, res: Response) => {
+  const verify = await TransactionController.deleteTransaction(_req);
+  if(verify)
+  {
+    res.status(200).send({status:"Deleted"});
+  }
+  else
+  {
+    res.status(200).send({status:"No Transaction to be deleted"});
+  }
 });
-
 
 export default router;

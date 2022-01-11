@@ -1,10 +1,11 @@
 {
-  "name": "cloud-containers-microservice-products",
+  "name": "cloud-containers-microservice-transaction",
   "version": "1.0.0",
-  "description": "Project microservice of the products",
+  "description": "Project microservice of the transactions",
   "main": "app.js",
   "scripts": {
     "test": "ts-node-dev --clear ./src/app.ts",
+    "init": "ts-node-dev --clear ./src/initDatabase.ts",
     "build": "tsc -w"
   },
   "author": "Sergio de la Mata Moratilla",
@@ -22,6 +23,15 @@
   },
   "dependencies": {
     "dotenv": "^10.0.0",
-    "ts-node-dev": "^1.1.8"
-  }
+    "ts-node-dev": "^1.1.8",
+    "uuid": "^8.3.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SergiodelaMata/cloud-containers-microservice-transaction.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SergiodelaMata/cloud-containers-microservice-transaction/issues"
+  },
+  "homepage": "https://github.com/SergiodelaMata/cloud-containers-microservice-transaction#readme"
 }

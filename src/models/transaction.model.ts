@@ -89,7 +89,6 @@ export class TransactionModel {
       transaction.typetransaction = req.body.typetransaction;
       transaction.userId = req.body.userId;
       transaction.productId = req.body.productId;
-      console.log(transaction);
       await TransactionModel.repository.save(transaction);
       return true;
     } catch (error) {

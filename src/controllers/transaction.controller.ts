@@ -6,12 +6,14 @@ export interface GetTransactions {
   transactionData: TransactionEntity | TransactionEntity[];
   logged: boolean;
   userId: string;
+  rol : string;
 }
 
 export interface GetTransaction {
   transactionData: TransactionEntity;
   logged: boolean;
   userId: string;
+  rol : string;
 }
 export class TransactionController {
   public static async getTransactions(req: Request): Promise<GetTransactions> {
@@ -19,6 +21,7 @@ export class TransactionController {
       transactionData: await TransactionModel.getTransactions(),
       logged: false,
       userId: null,
+      rol: null,
     };
   }
 
@@ -27,6 +30,7 @@ export class TransactionController {
       transactionData: await TransactionModel.getTransaction(req.params.transactionId),
       logged: false,
       userId: null,
+      rol: null,
     };
   }
 

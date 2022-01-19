@@ -8,6 +8,9 @@ export class TransactionEntity {
   @Column("int")
   quantity: number;
 
+  @Column("float")
+  price: number;
+
   @Column("varchar", {length: 7})
   typetransaction: string;
 

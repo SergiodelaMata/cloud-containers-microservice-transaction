@@ -52,7 +52,9 @@ export class TransactionModel {
   public static async saveTransaction(req: Request): Promise<boolean> {
     const transaction: TransactionEntity = new TransactionEntity();
     transaction.transactionId = uuidv4(); //genera un identificador
-    transaction.quantity = req.body.quantity;
+    transaction.quantity = req.body.quantitySelected;
+    const price = req.body.price;
+    transaction.price = price.slice(0,-1);
     transaction.datetransaction = req.body.datetransaction;
     transaction.typetransaction = req.body.typetransaction;
     transaction.userId = req.body.userId;
@@ -85,6 +87,7 @@ export class TransactionModel {
         .getRepository(TransactionEntity);
       const transaction: TransactionEntity = await TransactionModel.getTransaction(req.body.transactionId);
       transaction.quantity = req.body.quantity;
+      transaction.price = req.body.price;
       transaction.datetransaction = req.body.datetransaction;
       transaction.typetransaction = req.body.typetransaction;
       transaction.userId = req.body.userId;

@@ -14,12 +14,14 @@ export class DataGenerator {
       transaction1.quantity = 2;
       transaction1.datetransaction = new Date("2021-11-10")
       transaction1.typetransaction = "Vender";
+      transaction1.price = 10;
       transaction1.userId = "b47c585c-70f4-473e-bf3b-f20fd9bde114";
       transaction1.productId = "998575ef-1736-46f0-ba89-a18825eb05ec";
       
       const transaction2: TransactionEntity = new TransactionEntity();
       transaction2.transactionId = uuidv4();
       transaction2.quantity = 2;
+      transaction2.price = 20;
       transaction2.datetransaction = new Date("2022-01-12")
       transaction2.typetransaction = "Comprar";
       transaction2.userId = "b47c585c-70f4-473e-bf3b-f20fd9bde114";

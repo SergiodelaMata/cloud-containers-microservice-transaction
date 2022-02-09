@@ -11,7 +11,7 @@ export class Database {
     this.connection = await createConnection({
       type: "mysql",
       host: process.env.HOST,
-      port: 3308,
+      port: Number(process.env.DATABASE_PORT),
       username: process.env.DATABASE_USER,
       password: process.env.PASSWORD,
       database: process.env.DATABASE,

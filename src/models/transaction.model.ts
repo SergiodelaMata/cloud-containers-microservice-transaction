@@ -21,6 +21,13 @@ export class TransactionModel {
     return await TransactionModel.repository.findOne({ transactionId: transactionId });
   }
 
+  public static async getTransactionsUser(userId: string): Promise<TransactionEntity[]> {
+    TransactionModel.repository = await database
+      .getConnection()
+      .getRepository(TransactionEntity);
+    return await TransactionModel.repository.find({ userId: userId });
+  }
+
   public static async getTransactionByParams(userId: string, productId: string, datetransaction: Date, typetransaction: string): Promise<TransactionEntity> {
     TransactionModel.repository = await database
       .getConnection()
@@ -54,7 +61,14 @@ export class TransactionModel {
     transaction.transactionId = uuidv4(); //genera un identificador
     transaction.quantity = req.body.quantitySelected;
     const price = req.body.price;
-    transaction.price = price.slice(0,-1);
+    if(price.substr(price.length - 1) == "€")
+    {
+      transaction.price = price.slice(0,-1);
+    }
+    else
+    {
+      transaction.price = price;
+    }
     transaction.datetransaction = req.body.datetransaction;
     transaction.typetransaction = req.body.typetransaction;
     transaction.userId = req.body.userId;
@@ -99,22 +113,4 @@ export class TransactionModel {
       return false;
     }
   }
-
-  public static async deleteTransaction(TransactionId: string): Promise<boolean> {
-    const TransactionData: TransactionEntity = await this.getTransaction(TransactionId);
-    if (TransactionData) {
-      try {
-        TransactionModel.repository = await database
-          .getConnection()
-          .getRepository(TransactionEntity);
-        await TransactionModel.repository.delete(TransactionData.transactionId);
-        return true;
-      } catch {
-        return false;
-      }
-    } else {
-      return false;
-    }
-  }
-
 }

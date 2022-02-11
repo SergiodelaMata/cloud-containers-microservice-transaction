@@ -5,16 +5,25 @@ const router: Router = express.Router();
 
 router.get("/transactions", async(_req: Request, res: Response) =>{
   const transactionData: GetTransactions = await TransactionController.getTransactions(_req);
+  res.header("X-version","1");
+  res.header("X-sender","transaction");
+  res.header("X-destination","enrouting");
   res.send(transactionData);
 })
 
 router.get("/transactions/:transactionId", async(_req: Request, res: Response) =>{
   const userData: GetTransaction = await TransactionController.getTransaction(_req);
+  res.header("X-version","1");
+  res.header("X-sender","transaction");
+  res.header("X-destination","enrouting");
   res.send(userData);
 })
 
 router.post("/transaction", async(_req: Request, res: Response) => {
   const verify = await TransactionController.saveTransaction(_req);
+  res.header("X-version","1");
+  res.header("X-sender","transaction");
+  res.header("X-destination","enrouting");
   if(verify)
   {
     res.status(200).send({status:"Saved"});
@@ -27,6 +36,9 @@ router.post("/transaction", async(_req: Request, res: Response) => {
 
 router.put("/transaction/update", async(_req: Request, res: Response) => {
   const verify = await TransactionController.updateTransaction(_req);
+  res.header("X-version","1");
+  res.header("X-sender","transaction");
+  res.header("X-destination","enrouting");
   if(verify)
   {
     res.status(200).send({status:"Updated"});
@@ -40,6 +52,9 @@ router.put("/transaction/update", async(_req: Request, res: Response) => {
 
 router.delete("/admin/transaction/:transactionId", async(_req: Request, res: Response) => {
   const verify = await TransactionController.deleteTransaction(_req);
+  res.header("X-version","1");
+  res.header("X-sender","transaction");
+  res.header("X-destination","enrouting");
   if(verify)
   {
     res.status(200).send({status:"Deleted"});

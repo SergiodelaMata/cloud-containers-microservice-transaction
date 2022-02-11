@@ -34,15 +34,20 @@ export class TransactionController {
     };
   }
 
+  public static async getTransactionsUser(req: Request): Promise<GetTransactions> {
+    return {
+      transactionData: await TransactionModel.getTransactionsUser(req.params.userId),
+      logged: false,
+      userId: null,
+      rol: null,
+    };
+  }
+
   public static async saveTransaction(req: Request): Promise<boolean> {
     return await TransactionModel.saveTransaction(req);
   }
 
   public static async updateTransaction(req: Request): Promise<boolean> {
     return await TransactionModel.updateTransaction(req);
-  }
-
-  public static async deleteTransaction(req: Request): Promise<boolean> {
-    return await TransactionModel.deleteTransaction(req.params.transactionId);
   }
 }

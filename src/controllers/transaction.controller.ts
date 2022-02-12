@@ -50,4 +50,8 @@ export class TransactionController {
   public static async updateTransaction(req: Request): Promise<boolean> {
     return await TransactionModel.updateTransaction(req);
   }
+
+  public static async deleteTransaction(req: Request): Promise<boolean> {
+    return await TransactionModel.deleteTransaction(req.params.transactionId);
+  }
 }

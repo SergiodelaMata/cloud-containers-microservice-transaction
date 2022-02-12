@@ -113,4 +113,21 @@ export class TransactionModel {
       return false;
     }
   }
+
+  public static async deleteTransaction(TransactionId: string): Promise<boolean> {
+    const TransactionData: TransactionEntity = await this.getTransaction(TransactionId);
+    if (TransactionData) {
+      try {
+        TransactionModel.repository = await database
+          .getConnection()
+          .getRepository(TransactionEntity);
+        await TransactionModel.repository.delete(TransactionData.transactionId);
+        return true;
+      } catch {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
 }
